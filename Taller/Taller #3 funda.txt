@@ -1,0 +1,142 @@
+module SumadorCompletoUnBit(
+    input bitEntradaA,
+    input bitEntradaB,
+    input acarreoEntrada,
+    output bitResultadoSuma,
+    output acarreoSalida
+);
+
+    // Señales internas
+    wire resultadoXorEntradas;
+    wire acarreoGeneradoPorEntradas;
+    wire acarreoGeneradoPorAcarreo;
+
+    // Cálculo de la suma
+    assign resultadoXorEntradas = bitEntradaA ^ bitEntradaB;
+    assign bitResultadoSuma = resultadoXorEntradas ^ acarreoEntrada;
+
+    // Cálculo de los acarreos
+    assign acarreoGeneradoPorEntradas =
+           bitEntradaA & bitEntradaB;
+
+    assign acarreoGeneradoPorAcarreo =
+           acarreoEntrada & resultadoXorEntradas;
+
+    // Acarreo final
+    assign acarreoSalida =
+           acarreoGeneradoPorEntradas |
+           acarreoGeneradoPorAcarreo;
+
+endmodule
+
+
+//=====================================================
+// Banco de pruebas
+//=====================================================
+
+module BancoDePruebas;
+
+    reg bitEntradaA;
+    reg bitEntradaB;
+    reg acarreoEntrada;
+
+    wire bitResultadoSuma;
+    wire acarreoSalida;
+
+    // Instancia del sumador
+    SumadorCompletoUnBit circuitoSumador(
+
+        .bitEntradaA(bitEntradaA),
+        .bitEntradaB(bitEntradaB),
+        .acarreoEntrada(acarreoEntrada),
+
+        .bitResultadoSuma(bitResultadoSuma),
+        .acarreoSalida(acarreoSalida)
+    );
+
+    initial begin
+//Formato de mostar variables
+
+
+
+        $display("----------------------------------------------------");
+        $display("A B Cin | S Cout | Resultado Binario");
+        $display("----------------------------------------------------");
+
+        bitEntradaA = 0;
+        bitEntradaB = 0;
+        acarreoEntrada = 0;
+        #10;
+        $display("%b %b  %b  | %b   %b   | %b%b",
+                 bitEntradaA, bitEntradaB, acarreoEntrada,
+                 bitResultadoSuma, acarreoSalida,
+                 acarreoSalida, bitResultadoSuma);
+
+        bitEntradaA = 0;
+        bitEntradaB = 0;
+        acarreoEntrada = 1;
+        #10;
+        $display("%b %b  %b  | %b   %b   | %b%b",
+                 bitEntradaA, bitEntradaB, acarreoEntrada,
+                 bitResultadoSuma, acarreoSalida,
+                 acarreoSalida, bitResultadoSuma);
+
+        bitEntradaA = 0;
+        bitEntradaB = 1;
+        acarreoEntrada = 0;
+        #10;
+        $display("%b %b  %b  | %b   %b   | %b%b",
+                 bitEntradaA, bitEntradaB, acarreoEntrada,
+                 bitResultadoSuma, acarreoSalida,
+                 acarreoSalida, bitResultadoSuma);
+
+        bitEntradaA = 0;
+        bitEntradaB = 1;
+        acarreoEntrada = 1;
+        #10;
+        $display("%b %b  %b  | %b   %b   | %b%b",
+                 bitEntradaA, bitEntradaB, acarreoEntrada,
+                 bitResultadoSuma, acarreoSalida,
+                 acarreoSalida, bitResultadoSuma);
+
+        bitEntradaA = 1;
+        bitEntradaB = 0;
+        acarreoEntrada = 0;
+        #10;
+        $display("%b %b  %b  | %b   %b   | %b%b",
+                 bitEntradaA, bitEntradaB, acarreoEntrada,
+                 bitResultadoSuma, acarreoSalida,
+                 acarreoSalida, bitResultadoSuma);
+
+        bitEntradaA = 1;
+        bitEntradaB = 0;
+        acarreoEntrada = 1;
+        #10;
+        $display("%b %b  %b  | %b   %b   | %b%b",
+                 bitEntradaA, bitEntradaB, acarreoEntrada,
+                 bitResultadoSuma, acarreoSalida,
+                 acarreoSalida, bitResultadoSuma);
+
+        bitEntradaA = 1;
+        bitEntradaB = 1;
+        acarreoEntrada = 0;
+        #10;
+        $display("%b %b  %b  | %b   %b   | %b%b",
+                 bitEntradaA, bitEntradaB, acarreoEntrada,
+                 bitResultadoSuma, acarreoSalida,
+                 acarreoSalida, bitResultadoSuma);
+
+        bitEntradaA = 1;
+        bitEntradaB = 1;
+        acarreoEntrada = 1;
+        #10;
+        $display("%b %b  %b  | %b   %b   | %b%b",
+                 bitEntradaA, bitEntradaB, acarreoEntrada,
+                 bitResultadoSuma, acarreoSalida,
+                 acarreoSalida, bitResultadoSuma);
+
+        $finish;
+
+    end
+
+endmodule
